@@ -1,0 +1,86 @@
+/*===============CONTADOR BINARIO 01==============|
+| * Data 12/08/2020                               |
+| * Autor: João C. - Código Eletrônico - Sistemas |
+| * Projeto - BIN Counter                         |
+|================================================*/
+
+//==================================================
+#define CLK    2
+#define DATA   3
+#define UPLOAD 4
+#define RED    5
+#define GREEN  6
+//==================== Global VAR's ================
+
+int num = 0; 
+boolean Red_ON, Green_ON = LOW;  
+byte bitcontrol = 0b0000;
+//======================= Main =====================
+
+void setup() { 
+  
+pinMode(CLK,    OUTPUT);   
+pinMode(DATA,   OUTPUT);
+pinMode(UPLOAD, OUTPUT);
+pinMode(RED,    INPUT_PULLUP);
+pinMode(GREEN,  INPUT_PULLUP);
+Serial.begin (9600);
+
+          Red_ON   =  digitalRead(RED);
+          
+          Green_ON =  digitalRead(GREEN);
+          
+          shiftOut(DATA, CLK, MSBFIRST, 0x00);
+          digitalWrite(UPLOAD, LOW);
+          digitalWrite(UPLOAD, HIGH);
+          digitalWrite(UPLOAD, LOW);
+         
+}
+
+//end Main
+
+//========================= Loop ====================
+
+void loop() {
+  LOAD_pulse();
+ 
+  //END_Load();  
+  }//end Loop
+ 
+//======================= Funções ===================
+void LOAD_pulse(){
+  
+  for(int i = 0; i <= 15; i++){
+  
+    Red_ON   =  digitalRead(RED);
+    Green_ON =  digitalRead(GREEN);
+
+       if(Red_ON){
+
+          Green_ON = LOW;
+          
+          bitcontrol = byte(i);
+          
+          shiftOut(DATA, CLK, MSBFIRST, bitcontrol);
+          digitalWrite(UPLOAD, LOW);
+          digitalWrite(UPLOAD, HIGH);
+          digitalWrite(UPLOAD, LOW);
+          delay(600);
+          
+        }else{
+
+              Red_ON = LOW;
+              
+              bitcontrol = byte(i);
+          
+              shiftOut(DATA, CLK, MSBFIRST, bitcontrol);
+              digitalWrite(UPLOAD, LOW);
+              digitalWrite(UPLOAD, HIGH);
+              digitalWrite(UPLOAD, LOW);
+              delay(600);    
+        }
+     }
+
+}
+
+//end of functions;
