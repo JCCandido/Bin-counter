@@ -1,2 +1,2 @@
-# Código Eletrônico
-Embedded Systems and Electronics.
+# BIN-Counter
+BIN counter with external circuit oscilator control
