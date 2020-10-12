@@ -1,2 +1,2 @@
-# Bin-counter
-Bin counter with external circuit control.
+# Código Eletrônico
+Embedded Systems and Electronics.
